@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "vedio api"// TODO: add title
+	desc: "vedio" // TODO: add description
+	author: "lei"
+	email: "3096407768@qq.com"
+)
+
+type (
+	UploapReq {
+		Title string `form:"title"`
+		Kind  uint   `form:"kind"`
+	}
+	UploapResp {
+		Code int    `json:"code"`
+		Msg  string `json:"msg"`
+	}
+)
+
+@server(
+	prefix: api/v1/vedio
+	jwt: JwtAuth
+)
+
+service video-api {
+	//发布视频
+	@doc "upload_vedio"
+	@handler UploadVedio // TODO: set handler name and delete this comment
+	post /upload_vedio (UploapReq) returns (UploapResp)
+}

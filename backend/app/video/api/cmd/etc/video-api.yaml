@@ -1,0 +1,19 @@
+Name: video-api
+Host: 0.0.0.0
+Port: 8888
+TaskRpcConfig:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: video.rpc
+
+# jwt验证
+JwtAuth:
+  AccessSecret: gtodolist
+  AccessExpire: 31536000
+
+
+  KqPusherConf:
+    Brokers:
+      - 127.0.0.1:9092
+    Topic: payment-success
