@@ -28,3 +28,8 @@ func (e *CodeError) Error() string {
 func NewErrMsg(errMsg string) *CodeError {
 	return &CodeError{errCode: SERVER_COMMON_ERROR, errMsg: errMsg}
 }
+
+func New(err string, code uint32) *CodeError {
+	return &CodeError{errCode: code, errMsg: err}
+
+}

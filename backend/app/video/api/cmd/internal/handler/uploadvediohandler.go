@@ -1,11 +1,11 @@
 package handler
 
 import (
+	"TokTik/app/video/api/cmd/internal/logic"
+	"TokTik/app/video/api/cmd/internal/svc"
+	"TokTik/app/video/api/cmd/internal/types"
 	"net/http"
 
-	"TokTik/app/video/cmd/internal/logic"
-	"TokTik/app/video/cmd/internal/svc"
-	"TokTik/app/video/cmd/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -18,7 +18,7 @@ func UploadVedioHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewUploadVedioLogic(r.Context(), svcCtx)
-		resp, err := l.UploadVedio(&req)
+		resp, err := l.UploadVedio(&req, r)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

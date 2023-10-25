@@ -2,9 +2,8 @@
 package handler
 
 import (
+	"TokTik/app/video/api/cmd/internal/svc"
 	"net/http"
-
-	"TokTik/app/video/cmd/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

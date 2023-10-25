@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"TokTik/app/video/cmd/internal/config"
+	"TokTik/app/video/api/cmd/internal/config"
 )
 
 type ServiceContext struct {

@@ -1,12 +1,11 @@
 package main
 
 import (
+	"TokTik/app/video/api/cmd/internal/config"
+	"TokTik/app/video/api/cmd/internal/handler"
+	"TokTik/app/video/api/cmd/internal/svc"
 	"flag"
 	"fmt"
-
-	"TokTik/app/video/cmd/internal/config"
-	"TokTik/app/video/cmd/internal/handler"
-	"TokTik/app/video/cmd/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
