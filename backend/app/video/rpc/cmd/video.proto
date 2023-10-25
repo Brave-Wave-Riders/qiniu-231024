@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package video;
+option go_package = "./video";
+
+message UploadReq {
+  string Title = 1;
+  uint32 Kind = 2;
+}
+
+message UploadResp {
+  string Msg = 1;
+  int32 Code = 2;
+}
+
+service Video {
+  rpc  Upload (UploadReq) returns(UploadResp);
+}
