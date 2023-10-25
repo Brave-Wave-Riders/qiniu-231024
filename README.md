@@ -1,21 +1,36 @@
-# qiniu-231024
+# 七牛版抖音
 
-```shell
-goctl api -o video.api
+## 实现功能
 
-api生成
-goctl api go -api video.api -dir .
+1. 视频服务 (video/)
 
-生成proto文件模板
-goctl rpc template -o video.proto
+    - [ ] 浏览
+    - [ ] 发布 (审核)
+    - [ ] 删除
+    - [ ] 修改
+    - [ ] 搜索
+    - [ ] 分类
+    - [ ] 显示点赞数量
+    - [ ] 显示评论
+    - [ ] 记录并显示播放量 (待定)
 
-rpc生成
-goctl rpc protoc video.proto --go_out=. --go-grpc_out=. --zrpc_out=.
+2. 用户主页服务 (user/)
 
-数据库生成
-goctl model mysql datasource    --url "root:admin123@tcp(127.0.0.1:3306)/qiniuyun"  --table  video  -c --dir  .
+    - [ ] 登录
+    - [ ] 注册
+    - [ ] 展示用户个人信息
+    - [ ] 查看关注列表
+    - [ ] 查看粉丝列表
+    - [ ] 查看历史记录
+    - [ ] 展示用户视频列表
+    - [ ] 展示用户收藏视频列表
+    - [ ] 展示用户点赞视频列表
 
-```
+3. 用户行为服务 (action/)
 
-
-![img.png](img.png)
+    - [ ] 点赞视频
+    - [ ] 收藏视频
+    - [ ] 评论视频 (审核)
+    - [ ] 转发视频
+    - [ ] 关注用户
+    - [ ] 弹幕 (待定)
