@@ -13,11 +13,14 @@ import (
 )
 
 type (
+	DeleteReq  = video.DeleteReq
+	DeleteResp = video.DeleteResp
 	UploadReq  = video.UploadReq
 	UploadResp = video.UploadResp
 
 	Video interface {
 		Upload(ctx context.Context, in *UploadReq, opts ...grpc.CallOption) (*UploadResp, error)
+		Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteResp, error)
 	}
 
 	defaultVideo struct {
@@ -34,4 +37,9 @@ func NewVideo(cli zrpc.Client) Video {
 func (m *defaultVideo) Upload(ctx context.Context, in *UploadReq, opts ...grpc.CallOption) (*UploadResp, error) {
 	client := video.NewVideoClient(m.cli.Conn())
 	return client.Upload(ctx, in, opts...)
+}
+
+func (m *defaultVideo) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteResp, error) {
+	client := video.NewVideoClient(m.cli.Conn())
+	return client.Delete(ctx, in, opts...)
 }

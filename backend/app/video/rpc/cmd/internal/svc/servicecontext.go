@@ -10,13 +10,13 @@ import (
 type ServiceContext struct {
 	Config config.Config
 	Model  *xorm.Engine // 手动代码
-	Redis  redis.RedisConf
+	Redis  *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
 		Model:  model.Init("root:admin123@/qiniuyun?charset=utf8"),
-		Redis:  c.Redis.RedisConf,
+		Redis:  redis.MustNewRedis(c.Redis.RedisConf),
 	}
 }

@@ -13,6 +13,15 @@ message UploadResp {
   int32 Code = 2;
 }
 
+message deleteReq{
+  int32  id = 1;
+}
+message deleteResp{
+  string Msg = 1;
+  int32 Code = 2;
+}
+
 service Video {
   rpc  Upload (UploadReq) returns(UploadResp);
+  rpc  Delete (deleteReq) returns(deleteResp);
 }
