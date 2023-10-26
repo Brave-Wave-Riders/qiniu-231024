@@ -18,7 +18,7 @@ func DeleteVideoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewDeleteVideoLogic(r.Context(), svcCtx)
-		resp := l.DeleteVideo(&req)
+		resp, err := l.DeleteVideo(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
