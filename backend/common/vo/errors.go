@@ -1,4 +1,4 @@
-package dyerr
+package vo
 
 import "fmt"
 
@@ -7,12 +7,12 @@ import "fmt"
 */
 
 type CodeError struct {
-	errCode uint32
+	errCode int32
 	errMsg  string
 }
 
 // 返回给前端的错误码
-func (e *CodeError) GetErrCode() uint32 {
+func (e *CodeError) GetErrCode() int32 {
 	return e.errCode
 }
 
@@ -25,6 +25,9 @@ func (e *CodeError) Error() string {
 	return fmt.Sprintf("ErrCode:%d，ErrMsg:%s", e.errCode, e.errMsg)
 }
 
-func NewErrMsg(errMsg string) *CodeError {
+func NewErrMsg(errMsg string, errCode ...int32) *CodeError {
+	if len(errCode) > 0 {
+		return &CodeError{errCode: errCode[0], errMsg: errMsg}
+	}
 	return &CodeError{errCode: SERVER_COMMON_ERROR, errMsg: errMsg}
 }

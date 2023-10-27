@@ -25,3 +25,5 @@ cache/
 logs/
 **/cache/
 **/logs/
+
+**/template/
