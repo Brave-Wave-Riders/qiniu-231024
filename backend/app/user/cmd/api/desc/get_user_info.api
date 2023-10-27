@@ -1,0 +1,34 @@
+syntax = "v1"
+
+info(
+    title: "UserInfo API"
+    desc: "获取用户信息"
+    author: "GuoChenxu"
+    email: "2269409349@qq.com"
+    version: "1.0"
+)
+
+import "./common.api"
+
+type GetUserInfoReq {
+    Id int64 `path:"id"`
+}
+
+type GetUserInfoResp {
+    Status int `json:"status"`
+    Data User `json:"data"`
+    Message string `json:"message"`
+    Error string `json:"error"`
+}
+
+
+@server(
+    prefix: api/v1/user
+    jwt: JwtAuth
+)
+
+service user {
+    @doc "GetUserInfo"
+    @handler GetUserInfo
+    get /userinfo/:id (GetUserInfoReq) returns (GetUserInfoResp)
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "./pb";
+
+import "desc/common.proto";
+
+message GetUserInfoReq {
+  int64 id = 1;
+}
+
+message GetUserInfoResp {
+  int32 Status = 1;
+  User Data = 2;
+  string Message = 3;
+  string Error = 4;
+}

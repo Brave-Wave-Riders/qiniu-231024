@@ -3,7 +3,15 @@ syntax = "proto3";
 package pb;
 option go_package = "./pb";
 
-// 定义消息类型
+// common
+message User {
+  int64 Id = 1;
+  string Username = 2;
+  string Avatar = 3;
+  string Email = 4;
+}
+
+// register
 message RegisterReq {
   string Username = 1;
   string Password = 2;
@@ -18,16 +26,10 @@ message RegisterResp {
   string Error = 4;
 }
 
+// login
 message LoginReq {
   string Email = 1;
   string Password = 2;
-}
-
-message User {
-  int64 Id = 1;
-  string Username = 2;
-  string Avatar = 3;
-  string Email = 4;
 }
 
 message Data {
@@ -42,6 +44,7 @@ message LoginResp {
   string Error = 4;
 }
 
+// generate token
 message GenerateTokenReq {
   int64 userId = 1;
 }
@@ -52,9 +55,22 @@ message GenerateTokenResp {
   int64  refreshAfter = 3;
 }
 
+// get user info
+message GetUserInfoReq {
+  int64 id = 1;
+}
+
+message GetUserInfoResp {
+  int32 Status = 1;
+  User Data = 2;
+  string Message = 3;
+  string Error = 4;
+}
+
 // 定义服务
 service userrpc {
   rpc Register(RegisterReq) returns(RegisterResp);
   rpc Login(LoginReq) returns(LoginResp);
   rpc GenerateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
 }

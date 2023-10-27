@@ -34,7 +34,7 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	if err != nil && err != model.ErrNotFound {
 		return nil, errors.Wrap(vo.ErrDBerror, "数据库查询出错")
 	}
-	if user == nil {
+	if err == model.ErrNotFound || user == nil {
 		return nil, errors.Wrap(vo.ErrUserNoExistsError, "用户不存在")
 	}
 	if !tool.CheckPasswordHash(in.Password, user.Password) {

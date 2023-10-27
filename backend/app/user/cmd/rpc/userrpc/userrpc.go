@@ -16,6 +16,8 @@ type (
 	Data              = pb.Data
 	GenerateTokenReq  = pb.GenerateTokenReq
 	GenerateTokenResp = pb.GenerateTokenResp
+	GetUserInfoReq    = pb.GetUserInfoReq
+	GetUserInfoResp   = pb.GetUserInfoResp
 	LoginReq          = pb.LoginReq
 	LoginResp         = pb.LoginResp
 	RegisterReq       = pb.RegisterReq
@@ -26,6 +28,7 @@ type (
 		Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
+		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	}
 
 	defaultUserrpc struct {
@@ -52,4 +55,9 @@ func (m *defaultUserrpc) Login(ctx context.Context, in *LoginReq, opts ...grpc.C
 func (m *defaultUserrpc) GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error) {
 	client := pb.NewUserrpcClient(m.cli.Conn())
 	return client.GenerateToken(ctx, in, opts...)
+}
+
+func (m *defaultUserrpc) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+	client := pb.NewUserrpcClient(m.cli.Conn())
+	return client.GetUserInfo(ctx, in, opts...)
 }

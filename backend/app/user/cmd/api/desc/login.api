@@ -1,0 +1,42 @@
+syntax = "v1"
+
+info(
+	title: "登录 API"
+	desc: "登录api"
+	author: "GuoChenxu"
+	email: "2269409349@qq.com"
+	version: "1.0"
+)
+
+import "./common.api"
+
+// login
+type (
+	Data {
+		User  User   `json:"user"`
+		Token string `json:"token"`
+	}
+
+	LoginReq {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	LoginResp {
+		Status  int    `json:"status"`
+		Data    Data   `json:"data"`
+		Message string `json:"message"`
+		Error   string `json:"error"`
+	}
+)
+
+// api
+@server(
+	prefix: api/v1/user
+)
+
+service user {
+	@doc "login"
+	@handler login
+	post /login (LoginReq) returns (LoginResp)
+}
