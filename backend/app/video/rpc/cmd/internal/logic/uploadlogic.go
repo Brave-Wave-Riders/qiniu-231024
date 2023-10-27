@@ -30,6 +30,7 @@ func NewUploadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UploadLogi
 func (l *UploadLogic) Upload(in *video.UploadReq) (*video.UploadResp, error) {
 	// todo: add your logic here and delete this line
 	//上传视频
+	logx.Info(in.Kind)
 	putPolicy := storage.PutPolicy{
 		Scope: "bucket",
 	}

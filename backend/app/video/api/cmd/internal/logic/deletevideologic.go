@@ -35,4 +35,5 @@ func (l *DeleteVideoLogic) DeleteVideo(req *types.DeleteReq) (resp *types.Delete
 		Code: int(deleteResp.Code),
 		Msg:  deleteResp.Msg,
 	}, nil
+
 }

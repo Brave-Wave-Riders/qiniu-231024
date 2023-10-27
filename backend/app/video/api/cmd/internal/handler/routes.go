@@ -22,6 +22,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/delete_video",
 				Handler: DeleteVideoHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/star_video",
+				Handler: StarVideoHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/api/v1/video"),

@@ -6,7 +6,7 @@ info(
 	author: "lei"
 	email: "3096407768@qq.com"
 )
-
+//上传视频
 type (
 	UploapReq {
 		Title string `form:"title"`
@@ -18,13 +18,31 @@ type (
 	}
 )
 
+//删除视频
 type (
 	DeleteReq {
-		Id int `json:"id"`
+		Id int32 `json:"id"`
 	}
+
 	DeleteResp {
 		Code int    `json:"code"`
 		Msg  string `json:"msg"`
+	}
+)
+
+//点赞
+type (
+	StarReq {
+		Id int32 `json:"id"`
+	}
+	data {
+		Star int64 `json:"star"`
+		Id   int64 `json:"id"`
+	}
+	StarResp {
+		Code int    `json:"code"`
+		Msg  string `json:"msg"`
+		Data data   `json:"data"`
 	}
 )
 
@@ -42,4 +60,8 @@ service video-api {
 	@doc "delete_video"
 	@handler DeleteVideo
 	get /delete_video (DeleteReq) returns (DeleteResp)
+	//点赞数
+	@doc "star_video"
+	@handler StarVideo
+	get /star_video (StarReq) returns (StarResp)
 }

@@ -12,10 +12,25 @@ type UploapResp struct {
 }
 
 type DeleteReq struct {
-	Id int `json:"id"`
+	Id int32 `json:"id"`
 }
 
 type DeleteResp struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
+}
+
+type StarReq struct {
+	Id int32 `json:"id"`
+}
+
+type Data struct {
+	Star int64 `json:"star"`
+	Id   int64 `json:"id"`
+}
+
+type StarResp struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data Data   `json:"data"`
 }

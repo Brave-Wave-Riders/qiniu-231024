@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Video_Upload_FullMethodName = "/video.Video/Upload"
 	Video_Delete_FullMethodName = "/video.Video/Delete"
+	Video_Star_FullMethodName   = "/video.Video/star"
 )
 
 // VideoClient is the client API for Video service.
@@ -29,6 +30,7 @@ const (
 type VideoClient interface {
 	Upload(ctx context.Context, in *UploadReq, opts ...grpc.CallOption) (*UploadResp, error)
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteResp, error)
+	Star(ctx context.Context, in *StarReq, opts ...grpc.CallOption) (*StarResp, error)
 }
 
 type videoClient struct {
@@ -57,12 +59,22 @@ func (c *videoClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *videoClient) Star(ctx context.Context, in *StarReq, opts ...grpc.CallOption) (*StarResp, error) {
+	out := new(StarResp)
+	err := c.cc.Invoke(ctx, Video_Star_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VideoServer is the server API for Video service.
 // All implementations must embed UnimplementedVideoServer
 // for forward compatibility
 type VideoServer interface {
 	Upload(context.Context, *UploadReq) (*UploadResp, error)
 	Delete(context.Context, *DeleteReq) (*DeleteResp, error)
+	Star(context.Context, *StarReq) (*StarResp, error)
 	mustEmbedUnimplementedVideoServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedVideoServer) Upload(context.Context, *UploadReq) (*UploadResp
 }
 func (UnimplementedVideoServer) Delete(context.Context, *DeleteReq) (*DeleteResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedVideoServer) Star(context.Context, *StarReq) (*StarResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Star not implemented")
 }
 func (UnimplementedVideoServer) mustEmbedUnimplementedVideoServer() {}
 
@@ -125,6 +140,24 @@ func _Video_Delete_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Video_Star_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StarReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VideoServer).Star(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Video_Star_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VideoServer).Star(ctx, req.(*StarReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Video_ServiceDesc is the grpc.ServiceDesc for Video service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var Video_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _Video_Delete_Handler,
+		},
+		{
+			MethodName: "star",
+			Handler:    _Video_Star_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
