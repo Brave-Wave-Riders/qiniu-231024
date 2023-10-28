@@ -4,3 +4,8 @@ Etcd:
   Hosts:
   - 127.0.0.1:2379
   Key: video.rpc
+Redis:
+  Host: 127.0.0.1:6379
+  Pass: "admin123"
+  Type: node
+  Key: task.rpc

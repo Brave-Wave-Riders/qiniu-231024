@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 上传
 type UploadReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -130,6 +131,274 @@ func (x *UploadResp) GetCode() int32 {
 	return 0
 }
 
+// 删除
+type DeleteReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteReq) Reset() {
+	*x = DeleteReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_video_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteReq) ProtoMessage() {}
+
+func (x *DeleteReq) ProtoReflect() protoreflect.Message {
+	mi := &file_video_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteReq.ProtoReflect.Descriptor instead.
+func (*DeleteReq) Descriptor() ([]byte, []int) {
+	return file_video_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *DeleteReq) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type DeleteResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg  string `protobuf:"bytes,1,opt,name=Msg,proto3" json:"Msg,omitempty"`
+	Code int32  `protobuf:"varint,2,opt,name=Code,proto3" json:"Code,omitempty"`
+}
+
+func (x *DeleteResp) Reset() {
+	*x = DeleteResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_video_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteResp) ProtoMessage() {}
+
+func (x *DeleteResp) ProtoReflect() protoreflect.Message {
+	mi := &file_video_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteResp.ProtoReflect.Descriptor instead.
+func (*DeleteResp) Descriptor() ([]byte, []int) {
+	return file_video_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *DeleteResp) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *DeleteResp) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+type StarReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+}
+
+func (x *StarReq) Reset() {
+	*x = StarReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_video_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StarReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StarReq) ProtoMessage() {}
+
+func (x *StarReq) ProtoReflect() protoreflect.Message {
+	mi := &file_video_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StarReq.ProtoReflect.Descriptor instead.
+func (*StarReq) Descriptor() ([]byte, []int) {
+	return file_video_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *StarReq) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type Data struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Star int64 `protobuf:"varint,1,opt,name=star,proto3" json:"star,omitempty"`
+	Id   int64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *Data) Reset() {
+	*x = Data{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_video_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Data) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Data) ProtoMessage() {}
+
+func (x *Data) ProtoReflect() protoreflect.Message {
+	mi := &file_video_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Data.ProtoReflect.Descriptor instead.
+func (*Data) Descriptor() ([]byte, []int) {
+	return file_video_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Data) GetStar() int64 {
+	if x != nil {
+		return x.Star
+	}
+	return 0
+}
+
+func (x *Data) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type StarResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg  string `protobuf:"bytes,1,opt,name=Msg,proto3" json:"Msg,omitempty"`
+	Code int32  `protobuf:"varint,2,opt,name=Code,proto3" json:"Code,omitempty"`
+	Data *Data  `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *StarResp) Reset() {
+	*x = StarResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_video_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StarResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StarResp) ProtoMessage() {}
+
+func (x *StarResp) ProtoReflect() protoreflect.Message {
+	mi := &file_video_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StarResp.ProtoReflect.Descriptor instead.
+func (*StarResp) Descriptor() ([]byte, []int) {
+	return file_video_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *StarResp) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *StarResp) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *StarResp) GetData() *Data {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 var File_video_proto protoreflect.FileDescriptor
 
 var file_video_proto_rawDesc = []byte{
@@ -140,12 +409,32 @@ var file_video_proto_rawDesc = []byte{
 	0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x4b, 0x69, 0x6e, 0x64, 0x22, 0x32, 0x0a, 0x0a, 0x55,
 	0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x4d, 0x73, 0x67,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x12, 0x0a, 0x04, 0x43,
-	0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x43, 0x6f, 0x64, 0x65, 0x32,
-	0x36, 0x0a, 0x05, 0x56, 0x69, 0x64, 0x65, 0x6f, 0x12, 0x2d, 0x0a, 0x06, 0x55, 0x70, 0x6c, 0x6f,
-	0x61, 0x64, 0x12, 0x10, 0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61,
-	0x64, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x55, 0x70, 0x6c,
-	0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x76, 0x69, 0x64,
-	0x65, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x43, 0x6f, 0x64, 0x65, 0x22,
+	0x1b, 0x0a, 0x09, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x32, 0x0a, 0x0a,
+	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x4d, 0x73,
+	0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x12, 0x0a, 0x04,
+	0x43, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x43, 0x6f, 0x64, 0x65,
+	0x22, 0x19, 0x0a, 0x07, 0x73, 0x74, 0x61, 0x72, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x49,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x49, 0x64, 0x22, 0x2a, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x74, 0x61, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x04, 0x73, 0x74, 0x61, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x51, 0x0a, 0x08, 0x73, 0x74, 0x61, 0x72, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x12, 0x0a, 0x04, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x04, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x1f, 0x0a, 0x04, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32, 0x8e, 0x01, 0x0a, 0x05, 0x56,
+	0x69, 0x64, 0x65, 0x6f, 0x12, 0x2d, 0x0a, 0x06, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x12, 0x10,
+	0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71,
+	0x1a, 0x11, 0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x2d, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x10, 0x2e,
+	0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a,
+	0x11, 0x2e, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x2e, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x12, 0x27, 0x0a, 0x04, 0x73, 0x74, 0x61, 0x72, 0x12, 0x0e, 0x2e, 0x76, 0x69, 0x64,
+	0x65, 0x6f, 0x2e, 0x73, 0x74, 0x61, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x76, 0x69, 0x64,
+	0x65, 0x6f, 0x2e, 0x73, 0x74, 0x61, 0x72, 0x52, 0x65, 0x73, 0x70, 0x42, 0x09, 0x5a, 0x07, 0x2e,
+	0x2f, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -160,19 +449,29 @@ func file_video_proto_rawDescGZIP() []byte {
 	return file_video_proto_rawDescData
 }
 
-var file_video_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_video_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_video_proto_goTypes = []interface{}{
 	(*UploadReq)(nil),  // 0: video.UploadReq
 	(*UploadResp)(nil), // 1: video.UploadResp
+	(*DeleteReq)(nil),  // 2: video.deleteReq
+	(*DeleteResp)(nil), // 3: video.deleteResp
+	(*StarReq)(nil),    // 4: video.starReq
+	(*Data)(nil),       // 5: video.data
+	(*StarResp)(nil),   // 6: video.starResp
 }
 var file_video_proto_depIdxs = []int32{
-	0, // 0: video.Video.Upload:input_type -> video.UploadReq
-	1, // 1: video.Video.Upload:output_type -> video.UploadResp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	5, // 0: video.starResp.data:type_name -> video.data
+	0, // 1: video.Video.Upload:input_type -> video.UploadReq
+	2, // 2: video.Video.Delete:input_type -> video.deleteReq
+	4, // 3: video.Video.star:input_type -> video.starReq
+	1, // 4: video.Video.Upload:output_type -> video.UploadResp
+	3, // 5: video.Video.Delete:output_type -> video.deleteResp
+	6, // 6: video.Video.star:output_type -> video.starResp
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_video_proto_init() }
@@ -205,6 +504,66 @@ func file_video_proto_init() {
 				return nil
 			}
 		}
+		file_video_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_video_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_video_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StarReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_video_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Data); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_video_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StarResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -212,7 +571,7 @@ func file_video_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_video_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

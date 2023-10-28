@@ -2,8 +2,9 @@
 package handler
 
 import (
-	"TokTik/app/video/api/cmd/internal/svc"
 	"net/http"
+
+	"TokTik/app/video/api/cmd/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -13,11 +14,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/upload_vedio",
-				Handler: UploadVedioHandler(serverCtx),
+				Path:    "/upload_video",
+				Handler: UploadVideoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/delete_video",
+				Handler: DeleteVideoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/star_video",
+				Handler: StarVideoHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/api/v1/vedio"),
+		rest.WithPrefix("/api/v1/video"),
 	)
 }

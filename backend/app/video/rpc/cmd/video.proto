@@ -3,6 +3,7 @@ syntax = "proto3";
 package video;
 option go_package = "./video";
 
+//上传
 message UploadReq {
   string Title = 1;
   uint32 Kind = 2;
@@ -12,7 +13,33 @@ message UploadResp {
   string Msg = 1;
   int32 Code = 2;
 }
+//删除
+message deleteReq{
+  int32  id = 1;
+}
+message deleteResp{
+  string Msg = 1;
+  int32 Code = 2;
+}
+//点赞数
+
+message starReq{
+  int32 Id = 1;
+}
+message data{
+  int64 star=1;
+  int64 id=2;
+}
+
+
+message  starResp{
+  string Msg = 1;
+  int32 Code = 2;
+  data data = 3;
+}
 
 service Video {
   rpc  Upload (UploadReq) returns(UploadResp);
+  rpc  Delete (deleteReq) returns(deleteResp);
+  rpc   star (starReq) returns(starResp);
 }

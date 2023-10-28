@@ -26,3 +26,13 @@ func (s *VideoServer) Upload(ctx context.Context, in *video.UploadReq) (*video.U
 	l := logic.NewUploadLogic(ctx, s.svcCtx)
 	return l.Upload(in)
 }
+
+func (s *VideoServer) Delete(ctx context.Context, in *video.DeleteReq) (*video.DeleteResp, error) {
+	l := logic.NewDeleteLogic(ctx, s.svcCtx)
+	return l.Delete(in)
+}
+
+func (s *VideoServer) Star(ctx context.Context, in *video.StarReq) (*video.StarResp, error) {
+	l := logic.NewStarLogic(ctx, s.svcCtx)
+	return l.Star(in)
+}
