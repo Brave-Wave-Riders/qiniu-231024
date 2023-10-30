@@ -67,10 +67,38 @@ message GetUserInfoResp {
   string Error = 4;
 }
 
+// get followings
+
+message GetFollowingsReq {
+  int64 id = 1;
+}
+
+message GetFollowingsResp {
+  int32 Status = 1;
+  repeated User Data = 2;
+  string Message = 3;
+  string Error = 4;
+}
+
+// get fans
+
+message GetFansReq {
+  int64 id = 1;
+}
+
+message GetFansResp {
+  int32 Status = 1;
+  repeated User Data = 2;
+  string Message = 3;
+  string Error = 4;
+}
+
 // 定义服务
 service userrpc {
   rpc Register(RegisterReq) returns(RegisterResp);
   rpc Login(LoginReq) returns(LoginResp);
   rpc GenerateToken(GenerateTokenReq) returns(GenerateTokenResp);
   rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
+  rpc GetFollowings(GetFollowingsReq) returns(GetFollowingsResp);
+  rpc GetFans(GetFansReq) returns(GetFansResp);
 }

@@ -1,15 +1,15 @@
-package handler
+package user
 
 import (
-	"TokTik/app/user/cmd/api/internal/logic/user"
 	"net/http"
 
+	"TokTik/app/user/cmd/api/internal/logic/user"
 	"TokTik/app/user/cmd/api/internal/svc"
 	"TokTik/app/user/cmd/api/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func registerHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.RegisterReq
 		if err := httpx.Parse(r, &req); err != nil {

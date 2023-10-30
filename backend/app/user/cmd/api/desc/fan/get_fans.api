@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+    title: "get fans api"
+    desc: "获取粉丝列表API"
+    author: "GuoChenxu"
+    email: "2269409349@qq.com"
+    version: "1.0"
+)
+
+import "../common.api"
+
+type GetFansResponse {
+    Status int `json:"status"`
+    Data []User `json:"data"`
+    Message string `json:"message"`
+    Error string `json:"error"`
+}
+
+@server(
+    prefix: api/v1/user
+    jwt: JwtAuth
+    group: fan
+)
+
+service user {
+    @doc "GetFans"
+    @handler GetFans
+    get /fans returns (GetFansResponse)
+}
+

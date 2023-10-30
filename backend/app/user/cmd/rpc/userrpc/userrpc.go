@@ -16,6 +16,10 @@ type (
 	Data              = pb.Data
 	GenerateTokenReq  = pb.GenerateTokenReq
 	GenerateTokenResp = pb.GenerateTokenResp
+	GetFansReq        = pb.GetFansReq
+	GetFansResp       = pb.GetFansResp
+	GetFollowingsReq  = pb.GetFollowingsReq
+	GetFollowingsResp = pb.GetFollowingsResp
 	GetUserInfoReq    = pb.GetUserInfoReq
 	GetUserInfoResp   = pb.GetUserInfoResp
 	LoginReq          = pb.LoginReq
@@ -29,6 +33,8 @@ type (
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
 		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+		GetFollowings(ctx context.Context, in *GetFollowingsReq, opts ...grpc.CallOption) (*GetFollowingsResp, error)
+		GetFans(ctx context.Context, in *GetFansReq, opts ...grpc.CallOption) (*GetFansResp, error)
 	}
 
 	defaultUserrpc struct {
@@ -60,4 +66,14 @@ func (m *defaultUserrpc) GenerateToken(ctx context.Context, in *GenerateTokenReq
 func (m *defaultUserrpc) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
 	client := pb.NewUserrpcClient(m.cli.Conn())
 	return client.GetUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUserrpc) GetFollowings(ctx context.Context, in *GetFollowingsReq, opts ...grpc.CallOption) (*GetFollowingsResp, error) {
+	client := pb.NewUserrpcClient(m.cli.Conn())
+	return client.GetFollowings(ctx, in, opts...)
+}
+
+func (m *defaultUserrpc) GetFans(ctx context.Context, in *GetFansReq, opts ...grpc.CallOption) (*GetFansResp, error) {
+	client := pb.NewUserrpcClient(m.cli.Conn())
+	return client.GetFans(ctx, in, opts...)
 }

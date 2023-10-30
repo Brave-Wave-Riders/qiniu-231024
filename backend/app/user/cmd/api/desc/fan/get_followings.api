@@ -1,0 +1,30 @@
+syntax = "v1"
+
+info(
+    title: "get following api"
+    desc: "获取关注列表API"
+    author: "GuoChenxu"
+    email: "2269409349@qq.com"
+    version: "1.0"
+)
+
+import "../common.api"
+
+type GetFollowingsResponse {
+    Status int `json:"status"`
+    Data []User `json:"data"`
+    Message string `json:"message"`
+    Error string `json:"error"`
+}
+
+@server(
+    prefix: api/v1/user
+    jwt: JwtAuth
+    group: fan
+)
+
+service user {
+    @doc "GetUserFollowing"
+    @handler GetUserFollowing
+    get /followings returns (GetFollowingsResponse)
+}

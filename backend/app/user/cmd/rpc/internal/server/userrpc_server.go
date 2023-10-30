@@ -41,3 +41,13 @@ func (s *UserrpcServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) 
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)
 }
+
+func (s *UserrpcServer) GetFollowings(ctx context.Context, in *pb.GetFollowingsReq) (*pb.GetFollowingsResp, error) {
+	l := logic.NewGetFollowingsLogic(ctx, s.svcCtx)
+	return l.GetFollowings(in)
+}
+
+func (s *UserrpcServer) GetFans(ctx context.Context, in *pb.GetFansReq) (*pb.GetFansResp, error) {
+	l := logic.NewGetFansLogic(ctx, s.svcCtx)
+	return l.GetFans(in)
+}

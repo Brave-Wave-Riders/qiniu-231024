@@ -2,7 +2,7 @@ package logic
 
 import (
 	"TokTik/app/user/cmd/rpc/userrpc"
-	"TokTik/app/user/model"
+	"TokTik/app/user/model/users"
 	"TokTik/common/tool"
 	"TokTik/common/vo"
 	"context"
@@ -31,10 +31,10 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	// 查询用户是否存在且密码正确
 	user, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, in.Email)
-	if err != nil && err != model.ErrNotFound {
-		return nil, errors.Wrap(vo.ErrDBerror, "数据库查询出错")
+	if err != nil && err != users.ErrNotFound {
+		return nil, errors.Wrap(vo.ErrDBError, "数据库查询出错")
 	}
-	if err == model.ErrNotFound || user == nil {
+	if err == users.ErrNotFound || user == nil {
 		return nil, errors.Wrap(vo.ErrUserNoExistsError, "用户不存在")
 	}
 	if !tool.CheckPasswordHash(in.Password, user.Password) {

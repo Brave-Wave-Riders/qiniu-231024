@@ -1,9 +1,10 @@
-package logic
+package user
 
 import (
 	"TokTik/app/user/cmd/rpc/pb"
 	"TokTik/common/vo"
 	"context"
+	"fmt"
 	"github.com/jinzhu/copier"
 
 	"TokTik/app/user/cmd/api/internal/svc"
@@ -12,35 +13,34 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type LoginLogic struct {
+type GetUserInfoLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic {
-	return &LoginLogic{
+func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserInfoLogic {
+	return &GetUserInfoLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	loginResp, err := l.svcCtx.UserRpcClient.Login(l.ctx, &pb.LoginReq{
-		Email:    req.Email,
-		Password: req.Password,
-	})
+func (l *GetUserInfoLogic) GetUserInfo(req *types.GetUserInfoReq) (resp *types.GetUserInfoResp, err error) {
+	res, err := l.svcCtx.UserRpcClient.GetUserInfo(l.ctx, &pb.GetUserInfoReq{Id: req.Id})
 
 	if err != nil {
-		return &types.LoginResp{
+		return &types.GetUserInfoResp{
 			Status:  int(vo.ErrRequestParamError.GetErrCode()),
 			Message: err.Error(),
 			Error:   err.Error(),
 		}, nil
 	}
 
-	resp = &types.LoginResp{}
-	_ = copier.Copy(resp, loginResp)
+	fmt.Println(res)
+	resp = &types.GetUserInfoResp{}
+	_ = copier.Copy(resp, res)
+	fmt.Println(resp)
 	return resp, err
 }

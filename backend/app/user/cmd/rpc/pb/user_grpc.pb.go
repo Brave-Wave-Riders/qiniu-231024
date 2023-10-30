@@ -23,6 +23,8 @@ const (
 	Userrpc_Login_FullMethodName         = "/pb.userrpc/Login"
 	Userrpc_GenerateToken_FullMethodName = "/pb.userrpc/GenerateToken"
 	Userrpc_GetUserInfo_FullMethodName   = "/pb.userrpc/GetUserInfo"
+	Userrpc_GetFollowings_FullMethodName = "/pb.userrpc/GetFollowings"
+	Userrpc_GetFans_FullMethodName       = "/pb.userrpc/GetFans"
 )
 
 // UserrpcClient is the client API for Userrpc service.
@@ -33,6 +35,8 @@ type UserrpcClient interface {
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
 	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+	GetFollowings(ctx context.Context, in *GetFollowingsReq, opts ...grpc.CallOption) (*GetFollowingsResp, error)
+	GetFans(ctx context.Context, in *GetFansReq, opts ...grpc.CallOption) (*GetFansResp, error)
 }
 
 type userrpcClient struct {
@@ -79,6 +83,24 @@ func (c *userrpcClient) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opt
 	return out, nil
 }
 
+func (c *userrpcClient) GetFollowings(ctx context.Context, in *GetFollowingsReq, opts ...grpc.CallOption) (*GetFollowingsResp, error) {
+	out := new(GetFollowingsResp)
+	err := c.cc.Invoke(ctx, Userrpc_GetFollowings_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userrpcClient) GetFans(ctx context.Context, in *GetFansReq, opts ...grpc.CallOption) (*GetFansResp, error) {
+	out := new(GetFansResp)
+	err := c.cc.Invoke(ctx, Userrpc_GetFans_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserrpcServer is the server API for Userrpc service.
 // All implementations must embed UnimplementedUserrpcServer
 // for forward compatibility
@@ -87,6 +109,8 @@ type UserrpcServer interface {
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	GenerateToken(context.Context, *GenerateTokenReq) (*GenerateTokenResp, error)
 	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
+	GetFollowings(context.Context, *GetFollowingsReq) (*GetFollowingsResp, error)
+	GetFans(context.Context, *GetFansReq) (*GetFansResp, error)
 	mustEmbedUnimplementedUserrpcServer()
 }
 
@@ -105,6 +129,12 @@ func (UnimplementedUserrpcServer) GenerateToken(context.Context, *GenerateTokenR
 }
 func (UnimplementedUserrpcServer) GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserInfo not implemented")
+}
+func (UnimplementedUserrpcServer) GetFollowings(context.Context, *GetFollowingsReq) (*GetFollowingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFollowings not implemented")
+}
+func (UnimplementedUserrpcServer) GetFans(context.Context, *GetFansReq) (*GetFansResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFans not implemented")
 }
 func (UnimplementedUserrpcServer) mustEmbedUnimplementedUserrpcServer() {}
 
@@ -191,6 +221,42 @@ func _Userrpc_GetUserInfo_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Userrpc_GetFollowings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFollowingsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserrpcServer).GetFollowings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Userrpc_GetFollowings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserrpcServer).GetFollowings(ctx, req.(*GetFollowingsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Userrpc_GetFans_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFansReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserrpcServer).GetFans(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Userrpc_GetFans_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserrpcServer).GetFans(ctx, req.(*GetFansReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Userrpc_ServiceDesc is the grpc.ServiceDesc for Userrpc service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +279,14 @@ var Userrpc_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserInfo",
 			Handler:    _Userrpc_GetUserInfo_Handler,
+		},
+		{
+			MethodName: "GetFollowings",
+			Handler:    _Userrpc_GetFollowings_Handler,
+		},
+		{
+			MethodName: "GetFans",
+			Handler:    _Userrpc_GetFans_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

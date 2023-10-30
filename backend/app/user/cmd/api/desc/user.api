@@ -8,6 +8,8 @@ info(
 	version: "1.0"
 )
 
-import "./get_user_info.api"
-import "./register.api"
-import "./login.api"
+import "./user/get_user_info.api"
+import "./user/register.api"
+import "./user/login.api"
+import "./fan/get_followings.api"
+import "./fan/get_fans.api"

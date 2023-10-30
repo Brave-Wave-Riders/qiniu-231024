@@ -1,4 +1,4 @@
-package model
+package users
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -20,6 +20,7 @@ type (
 	}
 
 	customUsersLogicModel interface {
+		myUsersModel
 	}
 )
 

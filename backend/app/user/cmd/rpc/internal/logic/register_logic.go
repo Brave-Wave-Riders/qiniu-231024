@@ -3,7 +3,7 @@ package logic
 import (
 	"TokTik/app/user/cmd/rpc/internal/svc"
 	"TokTik/app/user/cmd/rpc/pb"
-	"TokTik/app/user/model"
+	"TokTik/app/user/model/users"
 	"TokTik/common/tool"
 	"TokTik/common/vo"
 	"context"
@@ -32,8 +32,8 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 	user, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, in.Email)
 
 	// 查询出错
-	if err != nil && err != model.ErrNotFound {
-		return nil, errors.Wrap(vo.ErrDBerror, "数据库查询出错")
+	if err != nil && err != users.ErrNotFound {
+		return nil, errors.Wrap(vo.ErrDBError, "数据库查询出错")
 	}
 
 	// 用户名已存在
@@ -43,7 +43,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 
 	// 添加用户
 	bp, _ := tool.BcryptByString(in.Password)
-	user = &model.Users{
+	user = &users.Users{
 		Username: in.Username,
 		//Avatar:   in.Avatar,
 		Avatar: sql.NullString{
@@ -57,7 +57,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 
 	// 注册失败
 	if err != nil {
-		return nil, errors.Wrap(vo.ErrDBerror, "数据库插入出错")
+		return nil, errors.Wrap(vo.ErrDBError, "数据库插入出错")
 	}
 
 	return &pb.RegisterResp{

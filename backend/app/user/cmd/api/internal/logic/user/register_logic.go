@@ -1,4 +1,4 @@
-package logic
+package user
 
 import (
 	"TokTik/app/user/cmd/api/internal/svc"

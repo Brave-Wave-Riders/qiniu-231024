@@ -49,3 +49,17 @@ type LoginResp struct {
 	Message string `json:"message"`
 	Error   string `json:"error"`
 }
+
+type GetFollowingsResponse struct {
+	Status  int    `json:"status"`
+	Data    []User `json:"data"`
+	Message string `json:"message"`
+	Error   string `json:"error"`
+}
+
+type GetFansResponse struct {
+	Status  int    `json:"status"`
+	Data    []User `json:"data"`
+	Message string `json:"message"`
+	Error   string `json:"error"`
+}

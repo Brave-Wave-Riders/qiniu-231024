@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"TokTik/app/user/cmd/api/internal/logic/user"
 	"net/http"
 
-	"TokTik/app/user/cmd/api/internal/logic"
 	"TokTik/app/user/cmd/api/internal/svc"
 	"TokTik/app/user/cmd/api/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -17,7 +17,7 @@ func loginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := logic.NewLoginLogic(r.Context(), svcCtx)
+		l := user.NewLoginLogic(r.Context(), svcCtx)
 		resp, err := l.Login(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)

@@ -8,7 +8,7 @@ info(
     version: "1.0"
 )
 
-import "./common.api"
+import "../common.api"
 
 type GetUserInfoReq {
     Id int64 `path:"id"`
@@ -25,6 +25,7 @@ type GetUserInfoResp {
 @server(
     prefix: api/v1/user
     jwt: JwtAuth
+    group: user
 )
 
 service user {

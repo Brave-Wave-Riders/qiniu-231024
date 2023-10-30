@@ -4,6 +4,8 @@ package handler
 import (
 	"net/http"
 
+	fan "TokTik/app/user/cmd/api/internal/handler/fan"
+	user "TokTik/app/user/cmd/api/internal/handler/user"
 	"TokTik/app/user/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -15,7 +17,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/userinfo/:id",
-				Handler: GetUserInfoHandler(serverCtx),
+				Handler: user.GetUserInfoHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
@@ -27,7 +29,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/register",
-				Handler: registerHandler(serverCtx),
+				Handler: user.RegisterHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/api/v1/user"),
@@ -38,9 +40,33 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/login",
-				Handler: loginHandler(serverCtx),
+				Handler: user.LoginHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/api/v1/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/followings",
+				Handler: fan.GetUserFollowingHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/api/v1/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/fans",
+				Handler: fan.GetFansHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/api/v1/user"),
 	)
 }

@@ -1,25 +1,30 @@
 syntax = "v1"
 
 info(
-	title: "注册 API"
-	desc: "注册api"
+	title: "登录 API"
+	desc: "登录api"
 	author: "GuoChenxu"
 	email: "2269409349@qq.com"
 	version: "1.0"
 )
 
-// register
+import "../common.api"
+
+// login
 type (
-	RegisterReq {
-		Username string `json:"username"`
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Avatar   string `json:"avatar"`
+	Data {
+		User  User   `json:"user"`
+		Token string `json:"token"`
 	}
 
-	RegisterResp {
+	LoginReq {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	LoginResp {
 		Status  int    `json:"status"`
-		Data    string `json:"data"`
+		Data    Data   `json:"data"`
 		Message string `json:"message"`
 		Error   string `json:"error"`
 	}
@@ -28,10 +33,11 @@ type (
 // api
 @server(
 	prefix: api/v1/user
+	group: user
 )
 
 service user {
-	@doc "register"
-	@handler register
-	post /register (RegisterReq) returns (RegisterResp)
+	@doc "login"
+	@handler login
+	post /login (LoginReq) returns (LoginResp)
 }

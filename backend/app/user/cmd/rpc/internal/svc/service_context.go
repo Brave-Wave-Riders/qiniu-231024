@@ -2,14 +2,16 @@ package svc
 
 import (
 	"TokTik/app/user/cmd/rpc/internal/config"
-	"TokTik/app/user/model"
+	"TokTik/app/user/model/fans"
+	"TokTik/app/user/model/users"
 	"github.com/SpectatorNan/gorm-zero/gormc"
 	"log"
 )
 
 type ServiceContext struct {
 	Config    config.Config
-	UserModel model.UsersModel
+	UserModel users.UsersModel
+	FansModel fans.FansModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -19,6 +21,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	}
 	return &ServiceContext{
 		Config:    c,
-		UserModel: model.NewUsersModel(db, c.Cache),
+		UserModel: users.NewUsersModel(db, c.Cache),
+		FansModel: fans.NewFansModel(db, c.Cache),
 	}
 }
