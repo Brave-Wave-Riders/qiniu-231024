@@ -50,11 +50,19 @@ type LoginResp struct {
 	Error   string `json:"error"`
 }
 
+type GetFollowingsRequest struct {
+	UserId int64 `path:"id"`
+}
+
 type GetFollowingsResponse struct {
 	Status  int    `json:"status"`
 	Data    []User `json:"data"`
 	Message string `json:"message"`
 	Error   string `json:"error"`
+}
+
+type GetFansRequest struct {
+	UserId int64 `path:"id"`
 }
 
 type GetFansResponse struct {

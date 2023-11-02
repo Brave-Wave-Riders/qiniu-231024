@@ -2,7 +2,6 @@ package fan
 
 import (
 	"TokTik/app/user/cmd/rpc/pb"
-	"TokTik/common/ctxdata"
 	"TokTik/common/vo"
 	"context"
 	"github.com/jinzhu/copier"
@@ -27,8 +26,8 @@ func NewGetUserFollowingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *GetUserFollowingLogic) GetUserFollowing() (resp *types.GetFollowingsResponse, err error) {
-	id := ctxdata.GetUidFromCtx(l.ctx)
+func (l *GetUserFollowingLogic) GetUserFollowing(req *types.GetFollowingsRequest) (resp *types.GetFollowingsResponse, err error) {
+	id := req.UserId
 
 	fans, err := l.svcCtx.UserRpcClient.GetFollowings(l.ctx, &pb.GetFollowingsReq{Id: id})
 	if err != nil {

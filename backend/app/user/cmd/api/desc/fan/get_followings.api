@@ -10,6 +10,10 @@ info(
 
 import "../common.api"
 
+type GetFollowingsRequest {
+    userId int64 `path:"id"`
+}
+
 type GetFollowingsResponse {
     Status int `json:"status"`
     Data []User `json:"data"`
@@ -26,5 +30,5 @@ type GetFollowingsResponse {
 service user {
     @doc "GetUserFollowing"
     @handler GetUserFollowing
-    get /followings returns (GetFollowingsResponse)
+    get /followings/:id (GetFollowingsRequest) returns (GetFollowingsResponse)
 }

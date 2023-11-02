@@ -2,7 +2,6 @@ package fan
 
 import (
 	"TokTik/app/user/cmd/rpc/pb"
-	"TokTik/common/ctxdata"
 	"TokTik/common/vo"
 	"context"
 	"github.com/jinzhu/copier"
@@ -27,8 +26,8 @@ func NewGetFansLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetFansLo
 	}
 }
 
-func (l *GetFansLogic) GetFans() (resp *types.GetFansResponse, err error) {
-	id := ctxdata.GetUidFromCtx(l.ctx)
+func (l *GetFansLogic) GetFans(req *types.GetFansRequest) (resp *types.GetFansResponse, err error) {
+	id := req.UserId
 
 	fans, err := l.svcCtx.UserRpcClient.GetFans(l.ctx, &pb.GetFansReq{Id: id})
 	if err != nil {

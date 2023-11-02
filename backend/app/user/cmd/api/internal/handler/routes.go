@@ -50,7 +50,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/followings",
+				Path:    "/followings/:id",
 				Handler: fan.GetUserFollowingHandler(serverCtx),
 			},
 		},
@@ -62,7 +62,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/fans",
+				Path:    "/fans/:id",
 				Handler: fan.GetFansHandler(serverCtx),
 			},
 		},
