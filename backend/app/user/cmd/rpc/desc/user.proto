@@ -57,7 +57,7 @@ message GenerateTokenResp {
 
 // get user info
 message GetUserInfoReq {
-  int64 id = 1;
+  int64 Id = 1;
 }
 
 message GetUserInfoResp {
@@ -70,7 +70,7 @@ message GetUserInfoResp {
 // get followings
 
 message GetFollowingsReq {
-  int64 id = 1;
+  int64 Id = 1;
 }
 
 message GetFollowingsResp {
@@ -83,7 +83,7 @@ message GetFollowingsResp {
 // get fans
 
 message GetFansReq {
-  int64 id = 1;
+  int64 Id = 1;
 }
 
 message GetFansResp {

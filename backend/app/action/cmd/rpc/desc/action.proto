@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "./pb";
+
+message FollowReq {
+  int64 UserId = 1;
+  int64 FansId = 2;
+}
+
+message FollowResp {
+  int32 Status = 1;
+  string Data = 2;
+  string Message = 3;
+  string Error = 4;
+}
+
+// 定义服务
+service actionrpc {
+  rpc Follow(FollowReq) returns(FollowResp);
+}

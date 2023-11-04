@@ -1,0 +1,18 @@
+#nacos config.go
+NacosConfig:
+  DataId: action-rpc
+  Group: DEFAULT_GROUP
+  ServerConfigs:
+    - IpAddr: 127.0.0.1
+      Port: 8848
+  ClientConfig:
+    Username: nacos
+    Password: nacos
+    NamespaceId: 503fa2a5-1403-453b-9e39-18b61ae0ad4b
+    TimeoutMs: 5000
+    NotLoadCacheAtStart: true
+    LogDir: logs
+    CacheDir: cache
+    RotateTime: 1h
+    MaxAge: 3
+    LogLevel: debug

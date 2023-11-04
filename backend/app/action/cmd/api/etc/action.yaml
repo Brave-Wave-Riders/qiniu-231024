@@ -1,0 +1,15 @@
+Name: action-api
+Host: 0.0.0.0
+Port: 22503
+
+# nacos://[user:passwd]@host/service?param=value'
+ActionRpcConfig:
+  Target: nacos://nacos:nacos@127.0.0.1:8848/action-rpc?timeout=5000ms&namespaceid=503fa2a5-1403-453b-9e39-18b61ae0ad4b
+
+Log:
+  Encoding: plain
+
+# jwt验证
+JwtAuth:
+  AccessSecret: qiniu-tiktok
+  AccessExpire: 31536000

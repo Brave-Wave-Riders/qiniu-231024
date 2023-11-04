@@ -1,0 +1,47 @@
+Name: action-rpc
+ListenOn: 0.0.0.0:22504
+#Etcd:
+#  Hosts:
+#  - 127.0.0.1:2379
+#  Key: user.rpc
+
+NacosConfig:
+  Host: 127.0.0.1
+  Port: 8848
+  Username: nacos
+  Password: nacos
+  NamespaceId: 503fa2a5-1403-453b-9e39-18b61ae0ad4b
+  TimeoutMs: 5000
+  NotLoadCacheAtStart: true
+  LogLevel: debug
+
+# 日志
+Log:
+  Encoding: plain
+
+# jwt验证
+JwtAuth:
+  AccessSecret: qiniu-tiktok
+  AccessExpire: 31536000
+
+# mysql
+Mysql:
+  Path: 127.0.0.1
+  Port: 3306
+  Dbname: qiniu-tiktok
+  Username: root
+  Password: "101325"
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  LogZap: false
+  Config: parseTime=True&loc=Local
+
+Cache:
+  - Host: 127.0.0.1:6379
+    Pass: "101325"
+
+Redis:
+  Host: 127.0.0.1:6379
+  Pass: "101325"
+  Type: node
+  Key: qiniu-user.rpc

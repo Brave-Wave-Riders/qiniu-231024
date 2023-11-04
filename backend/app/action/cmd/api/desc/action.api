@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "action api"
+	desc: "用户行为的api文件"
+	author: "GuoChenxu"
+	email: "2269409349@qq.com"
+	version: "1.0"
+)
+
+type FollowRequest {
+	Id int64 `json:"id"`
+}
+
+type FollowResponse {
+	Status  int    `json:"status"`
+	Data    string `json:"data"`
+	Message string `json:"message"`
+	Error   string `json:"error"`
+}
+
+@server(
+	prefix: api/v1/action
+	jwt: JwtAuth
+)
+
+service action {
+	@doc "follow, 未关注则关注, 否则取消关注"
+	@handler follow
+	get /follow (FollowRequest) returns (FollowResponse)
+}
