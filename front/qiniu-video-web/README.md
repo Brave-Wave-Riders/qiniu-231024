@@ -1,6 +1,7 @@
 # qiniu-video-web
 vue add element-plus
 npm install video.js @videojs-player/vue --save
+npm install @element-plus/icons-vue
 videojs-contrib-hls
 path-browserify axios
 ## Project setup

@@ -1,11 +1,40 @@
 <template>
-  <div class="box">
-    <videoPlayer  class="video-player vjs-custom-skin"
-          ref="VideoPlayer"
-          :playsinline="true"
-          :options="playerOptions"
-      >
-    </videoPlayer>
+  <div class="pa123">
+    <div class="show-video">
+      <div class="box">
+        <videoPlayer  class="video-player vjs-custom-skin"
+              ref="VideoPlayer"
+              :playsinline="true"
+              :options="playerOptions"
+          >
+        </videoPlayer>
+      </div>
+      <div class="operation">
+        <div>
+          <el-icon :size="50"><ArrowUpBold /></el-icon>
+        </div>
+        <div>
+          <el-icon :size="50"><ArrowDownBold /></el-icon>
+        </div>
+        <br/>
+        <div>
+          <el-avatar
+            shape="circle"
+            :size="50"
+            :src="require('@/assets/default_img.jpg')"
+          ></el-avatar>
+        </div>
+      </div>
+    </div>
+    <div class="video-info">
+      <h1 class="video-title">
+        <span>使用video.js 在网站中搭建视频</span>
+      </h1>
+      <el-divider class="video-comment" content-position="left">
+        <span>评论</span>
+
+      </el-divider>
+    </div>
   </div>
 </template>
 <script>
@@ -20,7 +49,11 @@ export default {
   data() {
     return {
       playerOptions: {
-        autoplay: true,
+        // width: '640px',
+        // height: '480px',
+        // width: '100%',
+        // height: (window.screen.width * 9) / 16,
+        autoplay: false,
         muted: false,
         loop: false,
         preload: 'auto',
@@ -53,12 +86,48 @@ export default {
 }
 </script>
 
-<style>
-.box{
-  margin: 10% 20%;
+<style lang="scss">
+.show-video{
+  display: flex;
+  flex-direction: row;
+  .box{
+    width: 85%;
+    // height: 737.88px;
+    position: relative;
+    overflow: auto;
+  }
+  .operation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+    margin-left: 50px;
+    right: 0px;
+    width: 15%;
+    // height: 737.88px;
+    position: relative;
+    overflow: auto;
+  }
 }
-.video-js .vjs-big-play-button{
-  margin-left:43%;
-  margin-top: 25%;
+.video-title span{
+  color: rgba($color: #fff, $alpha: .9);
+  font-family: PingFang SC,DFPKingGothicGB-Regular,sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 64px;
+}
+.el-divider{
+  background-color: #181f2f;
+}
+.el-divider__text{
+  background: #16304e;
+}
+.video-comment span{
+  color: rgba($color: #fff, $alpha: .34);
+  background: #16304e;
+  font-family: PingFang SC,DFPKingGothicGB-Regular,sans-serif;
+  font-size: 25px;
+  font-weight: 100;
+  line-height: 32px;
 }
 </style>

@@ -76,67 +76,6 @@
     }
   }
 
-  .hideSidebar {
-    .sidebar-container {
-      width: 54px !important;
-    }
-
-    .main-container {
-      margin-left: 54px;
-    }
-
-    .submenu-title-noDropdown {
-      padding: 0 !important;
-      position: relative;
-
-      .el-tooltip {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-
-        .sub-el-icon {
-          margin-left: 19px;
-        }
-      }
-    }
-
-    .el-submenu {
-      overflow: hidden;
-
-      & > .el-submenu__title {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-
-        .sub-el-icon {
-          margin-left: 19px;
-        }
-
-        .el-submenu__icon-arrow {
-          display: none;
-        }
-      }
-    }
-
-    .el-menu--collapse {
-      .el-submenu {
-        & > .el-submenu__title {
-          & > span {
-            height: 0;
-            width: 0;
-            overflow: hidden;
-            visibility: hidden;
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
-
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }

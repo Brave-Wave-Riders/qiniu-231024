@@ -1,29 +1,28 @@
 <template>
   <div :class="{ show: isShow }" class="header-search">
-    <svg-icon
-      id="guide-search"
-      class-name="search-icon"
-      icon="search"
-      @click.stop="onShowClick"
-    />
-    <el-select
-      ref="headerSearchSelectRef"
-      class="header-search-select"
-      v-model="search"
-      filterable
-      default-first-option
-      remote
-      placeholder="Search"
-      :remote-method="querySearch"
-      @change="onSelectChange"
-    >
-      <el-option
-        v-for="option in searchOptions"
-        :key="option.item.path"
-        :label="option.item.title.join(' > ')"
-        :value="option.item"
-      ></el-option>
-    </el-select>
+    <div>
+      <el-select
+        ref="headerSearchSelectRef"
+        class="header-search-select"
+        v-model="search"
+        filterable
+        default-first-option
+        remote
+        placeholder="Search"
+        :remote-method="querySearch"
+        @change="onSelectChange"
+      >
+        <el-option
+          v-for="option in searchOptions"
+          :key="option.item.path"
+          :label="option.item.title.join(' > ')"
+          :value="option.item"
+        ></el-option>
+      </el-select>
+    </div>
+    <div class="search-icon">
+      <el-icon size="30"><Search /></el-icon>
+    </div>
   </div>
 </template>
 
@@ -59,20 +58,34 @@ watch(isShow, val => {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+.el-input--suffix .el-input__inner {
+    padding-right: 0px;
+    background: #16304e;
+    padding-left: 0px;
+    border: 0px;
+}
+.el-select .el-input.is-focus .el-input__inner {
+  background-color: #16304e !important;
+  border-color: #16304e !important;
+}
 .header-search {
+  display: flex;
   font-size: 0 !important;
+  justify-content: center;
+  margin-top: 10px;
+  background-color: #16304e;
+  border: 2px solid rgba($color: #fff, $alpha: .7);
+
   .search-icon {
     cursor: pointer;
-    font-size: 18px;
     vertical-align: middle;
+    justify-content: center;
     color: #fff;
   }
   .header-search-select {
     font-size: 18px;
-    transition: width 0.2s;
     width: 0;
-    overflow: hidden;
     background: transparent;
     border-radius: 0;
     display: inline-block;

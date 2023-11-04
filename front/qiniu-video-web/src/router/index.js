@@ -18,6 +18,14 @@ const routes = [
         }
       },
       {
+        path: '/video/:id',
+        component: () =>
+          import('@/views/video-detail/index'),
+        meta: {
+          title: 'videoDetail'
+        }
+      },
+      {
         path: '/404',
         name: '404',
         component: () =>
@@ -30,14 +38,6 @@ const routes = [
           import(/* webpackChunkName: "error-page" */ '@/views/error-page/401')
       }
     ]
-  },
-  {
-    path: '/video/:id',
-    component: () =>
-      import('@/views/video-detail/index'),
-    meta: {
-      title: 'videoDetail'
-    }
   }
 ]
 
