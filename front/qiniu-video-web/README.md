@@ -1,5 +1,8 @@
 # qiniu-video-web
-
+vue add element-plus
+npm install video.js @videojs-player/vue --save
+videojs-contrib-hls
+path-browserify axios
 ## Project setup
 ```
 npm install
