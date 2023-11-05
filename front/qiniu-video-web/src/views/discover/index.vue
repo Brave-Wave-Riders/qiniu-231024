@@ -9,7 +9,11 @@
           >
             <div @click="onShowClick(item.id)">
               <img :src=item.url>
-              <h4>{{ item.desc }}</h4>
+              <h4 class="titleWrap">{{ item.desc }}</h4>
+              <div class="authorWrap">
+                <span>@ </span>
+                <span>{{item.author}}</span>
+              </div>
             </div>
           </li>
         </ul>
@@ -39,26 +43,26 @@ const total = ref(0)
 const page = ref(1)
 const size = ref(15)
 const tableData = ref([
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 },
-  { url: 'title.png', desc: '测试图', id: 1 }])
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' },
+  { url: 'title.png', desc: '测试图', id: 1, author: '遁形' }])
 
 // 获取数据的方法
 const getListData = async () => {
@@ -102,8 +106,18 @@ const onShowClick = id => {
 
 .index-container {
   min-height: calc(100vh - 50px);
+  font-family: PingFang SC,DFPKingGothicGB-Regular,sans-serif;
   .t-list{
     min-height: calc(100vh - 50px);
+    .titleWrap {
+      color: rgba($color: #fff, $alpha: .9);
+      line-height: 28px;
+    }
+    .authorWrap{
+      color: rgba($color: #fff, $alpha: .5);
+      line-height: 22px;
+      font-size: 14px;
+    }
     ul {
       display: flex;
       flex-wrap: wrap;

@@ -26,6 +26,25 @@ const routes = [
         }
       },
       {
+        path: '/video/upload',
+        component: () =>
+          import('@/views/video-upload/index'),
+        meta: {
+          title: 'videoUpload'
+        }
+      },
+      // 个人中心
+      {
+        path: '/profile',
+        name: 'profile',
+        component: () =>
+          import('@/views/profile/index'),
+        meta: {
+          title: '我的',
+          icon: 'el-icon-user'
+        }
+      },
+      {
         path: '/404',
         name: '404',
         component: () =>

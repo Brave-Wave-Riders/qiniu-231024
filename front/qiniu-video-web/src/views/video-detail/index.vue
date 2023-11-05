@@ -80,7 +80,8 @@ export default {
     }
   },
   created() {
-    const url = 'http://s3hk0nelw.bkt.clouddn.com/video/mp4.v1080'
+    let url = 'http://s3hk0nelw.bkt.clouddn.com/video/mp4.v1080'
+    url = 'http://s3hk0nelw.bkt.clouddn.com/avthumb_test_target.mp4'
     this.playerOptions.sources[0].src = url
   }
 }

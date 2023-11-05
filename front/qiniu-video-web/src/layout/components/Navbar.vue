@@ -18,9 +18,9 @@
             <router-link to="/">
               <el-dropdown-item> 首页 </el-dropdown-item>
             </router-link>
-            <a target="_blank" href="">
+            <router-link to="/video/upload">
               <el-dropdown-item> 创作 </el-dropdown-item>
-            </a>
+            </router-link>
             <el-dropdown-item divided>
               登出
             </el-dropdown-item>
