@@ -32,14 +32,14 @@ const service = axios.create({
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    const { success, message, data } = response.data
+    const { code, errmsg, data } = response.data
     //   要根据success的成功与否决定下面的操作
-    if (success) {
+    if (code === 0) {
       return data
     } else {
       // 业务错误
-      ElMessage.error(message) // 提示错误消息
-      return Promise.reject(new Error(message))
+      ElMessage.error(errmsg) // 提示错误消息
+      return Promise.reject(new Error(errmsg))
     }
   },
   error => {

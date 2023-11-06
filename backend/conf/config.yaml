@@ -31,6 +31,6 @@ qiniu_cloud:
   fops: "avthumb/m3u8/segtime/10/ab/128k/ar/44100/acodec/libfaac/r/30/vb/640k/vcodec/libx264/stripmeta/0"
   accessKey: "-e5YcpxbTuZ680KgPG-ne-SWiknDZ3FvT56Q75qZ"
   secretKey: "Q90f2hiU-1_As9q9nclmCVMihJR6tSczCpWreLlG"
-  base: "http://s3hk0nelw.bkt.clouddn.com"
+  base: "http://s3hk0nelw.bkt.clouddn.com/"
   expires: 604800
 

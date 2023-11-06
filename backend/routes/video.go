@@ -40,13 +40,19 @@ func Token(filename string) string {
 
 type VideoItem struct {
 	ImgUrl  string `json:"url"`
-	Name    string `json:"name"`
+	Name    string `json:"desc"`
 	Author  string `json:"author"`
 	UserImg string `json:"icon"`
 }
 
 type VideoList struct {
 	videos []*VideoItem `json:"videos"`
+}
+
+type Response struct {
+	Code   int         `json:"code"`
+	ErrMsg string      `json:"errmsg"`
+	Data   interface{} `json:"data"`
 }
 
 // Upload
@@ -56,27 +62,30 @@ type VideoList struct {
 func Upload(ctx *gin.Context) {
 	info := &mysql.Video{}
 	if err := ctx.ShouldBind(info); err != nil {
-		ctx.JSON(400, gin.H{
-			"code":   1,
-			"errmsg": "invalid param",
+		ctx.JSON(400, &Response{
+			Code:   1,
+			ErrMsg: "invalid param",
 		})
 		return
 	}
 	db := mysql.Get()
 	tx := db.Create(info)
 	if tx.Error != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"code":   1,
-			"errmsg": "database error",
+		ctx.JSON(http.StatusInternalServerError, &Response{
+			Code:   1,
+			ErrMsg: "database error",
 		})
 		zap.L().Error(fmt.Sprintf("database error: %s", tx.Error.Error()))
 		return
 	}
 	token := Token(info.Name)
-	ctx.JSON(200, gin.H{
-		"code":  0,
-		"token": token,
-		"base":  settings.Conf.QiNiuCloud.Base,
+	data := make(map[string]interface{})
+	data["token"] = token
+	data["base"] = settings.Conf.QiNiuCloud.Base
+
+	ctx.JSON(200, &Response{
+		Code: 0,
+		Data: data,
 	})
 }
 
@@ -85,10 +94,10 @@ func Upload(ctx *gin.Context) {
 //	@Description:
 //	@param ctx
 func List(ctx *gin.Context) {
-	pages := ctx.DefaultQuery("pg", "0")
+	pages := ctx.DefaultQuery("page", "0")
 	pagesInt, _ := strconv.Atoi(pages)
 
-	perNums := ctx.DefaultQuery("pgsize", "0")
+	perNums := ctx.DefaultQuery("size", "0")
 	perNumsInt, _ := strconv.Atoi(perNums)
 	if pagesInt <= 0 {
 		pagesInt = 1
@@ -116,25 +125,28 @@ func List(ctx *gin.Context) {
 	db.Model(&mysql.Video{}).Count(&count)
 	if count == 0 {
 		res["total"] = 0
-		ctx.JSON(200, res)
+		ctx.JSON(200, &Response{
+			Code: 0,
+			Data: res,
+		})
 		return
 	}
 	err := db.Limit(perNumsInt).Offset(offset).Find(&videos).Error
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"code":   1,
-			"errmsg": "database error",
+		ctx.JSON(http.StatusInternalServerError, &Response{
+			Code:   1,
+			ErrMsg: "database error",
 		})
 		zap.L().Error(err.Error())
 		return
 	}
 	for _, v := range videos {
-		user := &mysql.User{}
-		user.ID = int32(v.Uid)
-		if err := db.Find(user).Error; err != nil {
-			ctx.JSON(http.StatusInternalServerError, gin.H{
-				"code":   1,
-				"errmsg": "database error",
+		user := mysql.User{}
+		//user.ID = int32(v.Uid)
+		if err := mysql.Get().First(&user, v.Uid).Error; err != nil {
+			ctx.JSON(http.StatusInternalServerError, &Response{
+				Code:   1,
+				ErrMsg: "database error",
 			})
 			zap.L().Error(err.Error())
 			return
@@ -144,8 +156,12 @@ func List(ctx *gin.Context) {
 
 	res["data"] = &videoList.videos
 	res["total"] = count
+	res["base"] = settings.Conf.QiNiuCloud.Base
 	rsp, err := json.Marshal(res)
 	log.Println(string(rsp))
 	//ctx.Data(200, "application/json", rsp)
-	ctx.JSON(200, res)
+	ctx.JSON(200, &Response{
+		Code: 0,
+		Data: res,
+	})
 }

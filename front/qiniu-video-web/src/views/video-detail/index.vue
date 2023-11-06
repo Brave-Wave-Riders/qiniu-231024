@@ -1,20 +1,24 @@
 <template>
+  <router-view/>
   <div class="pa123">
     <div class="show-video">
       <div class="box">
-        <videoPlayer  class="video-player vjs-custom-skin"
-              ref="VideoPlayer"
+        <video-player id='my-player' class="video-player vjs-custom-skin"
+              ref="videoPlayer"
               :playsinline="true"
               :options="playerOptions"
+              :loop="true"
+              :autoplay="true"
+              @mounted="handleMounted"
           >
-        </videoPlayer>
+        </video-player>
       </div>
       <div class="operation">
         <div>
-          <el-icon :size="50"><ArrowUpBold /></el-icon>
+          <el-icon :size="50"><ArrowUpBold @click="onUpBtnClicked"/></el-icon>
         </div>
         <div>
-          <el-icon :size="50"><ArrowDownBold /></el-icon>
+          <el-icon :size="50"><ArrowDownBold @click="onDownBtnClicked"/></el-icon>
         </div>
         <br/>
         <div>
@@ -28,7 +32,7 @@
     </div>
     <div class="video-info">
       <h1 class="video-title">
-        <span>使用video.js 在网站中搭建视频</span>
+        <span>{{key}}</span>
       </h1>
       <el-divider class="video-comment" content-position="left">
         <span>评论</span>
@@ -39,12 +43,24 @@
 </template>
 <script>
 import { VideoPlayer } from '@videojs-player/vue'
+// import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 import 'videojs-contrib-hls'
+// import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   components: {
     VideoPlayer
+  },
+  mounted() {
+    console.log('this is current player instance object', this.player)
+  },
+  computed: {
+    player() {
+      return this.$refs.videoPlayer.player
+    }
   },
   data() {
     return {
@@ -53,9 +69,9 @@ export default {
         // height: '480px',
         // width: '100%',
         // height: (window.screen.width * 9) / 16,
-        autoplay: false,
+        autoplay: true,
         muted: false,
-        loop: false,
+        loop: true,
         preload: 'auto',
         language: 'zh-CN',
         aspectRatio: '16:9',
@@ -76,15 +92,101 @@ export default {
           remainingTimeDisplay: false,
           fullscreenToggle: true // 是否显示全屏按钮
         }
-      }
+      },
+      key: ''
     }
   },
   created() {
-    let url = 'http://s3hk0nelw.bkt.clouddn.com/video/mp4.v1080'
-    url = 'http://s3hk0nelw.bkt.clouddn.com/avthumb_test_target.mp4'
+    console.log(this.$refs)
+    const route = useRoute()
+    this.key = route.params.id
+    const store = useStore()
+    const url = store.getters.base + this.key
+    console.log(url)
+    // let url = 'http://s3hk0nelw.bkt.clouddn.com/video/mp4.v1080'
+    // url = 'http://s3hk0nelw.bkt.clouddn.com/%E7%94%B2%E6%96%B9%E8%AF%B4%EF%BC%9A%E4%BD%A0%E6%80%A7%E6%84%9F%E4%B8%80%E7%82%B9%EF%BC%8C%E6%93%A6%E8%BE%B9%E4%B8%80%E7%82%B9%20-%201.%E7%94%B2%E6%96%B9%E8%AF%B4%EF%BC%9A%E4%BD%A0%E6%80%A7%E6%84%9F%E4%B8%80%E7%82%B9%EF%BC%8C%E6%93%A6%E8%BE%B9%E4%B8%80%E7%82%B9(Av917944767,P1)'
     this.playerOptions.sources[0].src = url
+  },
+  methods: {
+    onUpBtnClicked() {
+      console.log('up')
+      // const route = useRoute()
+      const key = this.key
+      // const store = useStore()
+      // const videos = store.getters.videoData
+      const videos = this.$store.getters.videoData
+      const len = videos.length
+      console.log(key + ' ' + videos + ' ' + len)
+      // const router = useRouter()
+      for (let i = 0; i < len; i++) {
+        if (videos[i].desc === key) {
+          console.log('find! ' + i)
+          if (i === 0) {
+            break
+          }
+          // this.$set(this.playerOptions.sources[0], 'src', this.$store.getters.base + videos[i - 1].desc)
+          // const player = videojs('my-player')
+          // player.src(this.$store.getters.base + videos[i - 1].desc)
+          this.player.src({ src: this.$store.getters.base + videos[i - 1].desc, type: 'application/x-mpegURL' })
+          // console.log(this.player)
+          // this.player.src(this.$store.getters.base + videos[i - 1].desc)
+          // this.$router.push({
+          //   path: `/video/${videos[i - 1].desc}`,
+          //   query: {
+          //     date: new Date().getTime()
+          //   }
+          // })
+          // location.reload()
+        }
+      }
+    },
+    onDownBtnClicked() {
+      console.log('down')
+      const key = this.key
+      // const store = useStore()
+      // const videos = store.getters.videoData
+      const videos = this.$store.getters.videoData
+      const len = videos.length
+      console.log(key + ' ' + videos + ' ' + len)
+      // const router = useRouter()
+      for (let i = 0; i < len; i++) {
+        console.log(videos[i].desc)
+        if (videos[i].desc === key) {
+          console.log('find! ' + i)
+          if (i === len - 1) {
+            break
+          }
+          console.log(window.location.href)
+          // const player = videojs('my-player')
+          // player.src(this.$store.getters.base + videos[i + 1].desc)
+          this.player.src({ src: this.$store.getters.base + videos[i + 1].desc, type: 'application/x-mpegURL' })
+          // this.$router.push({
+          //   path: `/video/${videos[i + 1].desc}`,
+          //   query: {
+          //     date: new Date().getTime()
+          //   }
+          // })
+          // this.$router.push(`/video/${videos[i + 1].desc}`)
+          // window.location.replace(`/video/${videos[i + 1].desc}`)
+        }
+      }
+    },
+    handleMounted(payload) {
+      // this.player.value = payload.player
+      console.log('Basic player mounted', payload)
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      const url = window.location.protocol + '//' + window.location.host + to.href
+      console.log(url)
+      if (this.$route.query.id) {
+        console.info('加载页面数据')
+      }
+    }
   }
 }
+
 </script>
 
 <style lang="scss">
