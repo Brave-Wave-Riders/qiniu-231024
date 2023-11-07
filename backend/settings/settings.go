@@ -52,6 +52,7 @@ type LogConfig struct {
 type QiNiuCloud struct {
 	Bucket    string `mapstructure:"bucket"`
 	Fops      string `mapstructure:"fops"`
+	ImgFops   string `mapstructure:"img_fops"`
 	AccessKey string `mapstructure:"accessKey"`
 	SecretKey string `mapstructure:"secretKey"`
 	Base      string `mapstructure:"base"`

@@ -1,5 +1,5 @@
 <template>
-  <router-view/>
+  <router-view>
   <div class="pa123">
     <div class="show-video">
       <div class="box">
@@ -10,6 +10,7 @@
               :loop="true"
               :autoplay="true"
               @mounted="handleMounted"
+              :source="[videoSource]"
           >
         </video-player>
       </div>
@@ -40,6 +41,7 @@
       </el-divider>
     </div>
   </div>
+  </router-view>
 </template>
 <script>
 import { VideoPlayer } from '@videojs-player/vue'
@@ -49,18 +51,12 @@ import 'videojs-contrib-hls'
 // import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import videojs from 'video.js'
 
+// const Base64 = require('js-base64').Base64
 export default {
   components: {
     VideoPlayer
-  },
-  mounted() {
-    console.log('this is current player instance object', this.player)
-  },
-  computed: {
-    player() {
-      return this.$refs.videoPlayer.player
-    }
   },
   data() {
     return {
@@ -93,14 +89,23 @@ export default {
           fullscreenToggle: true // 是否显示全屏按钮
         }
       },
-      key: ''
+      videoSource: {
+        type: 'application/x-mpegURL', // mp4格式视频,若为m3u8格式，type需设置为 application/x-mpegURL
+        withCredentials: false,
+        src: '' // url地址
+      },
+      key: '',
+      player: videojs.player,
+      showRouterView: true
     }
   },
   created() {
-    console.log(this.$refs)
     const route = useRoute()
     this.key = route.params.id
+    console.log(this.key)
     const store = useStore()
+    // const url = store.getters.base + Base64.encode(this.key)
+
     const url = store.getters.base + this.key
     console.log(url)
     // let url = 'http://s3hk0nelw.bkt.clouddn.com/video/mp4.v1080'
@@ -124,19 +129,15 @@ export default {
           if (i === 0) {
             break
           }
-          // this.$set(this.playerOptions.sources[0], 'src', this.$store.getters.base + videos[i - 1].desc)
-          // const player = videojs('my-player')
-          // player.src(this.$store.getters.base + videos[i - 1].desc)
-          this.player.src({ src: this.$store.getters.base + videos[i - 1].desc, type: 'application/x-mpegURL' })
-          // console.log(this.player)
-          // this.player.src(this.$store.getters.base + videos[i - 1].desc)
-          // this.$router.push({
-          //   path: `/video/${videos[i - 1].desc}`,
-          //   query: {
-          //     date: new Date().getTime()
-          //   }
-          // })
-          // location.reload()
+          this.$router.push({
+            path: `/video/${videos[i - 1].desc}`,
+            query: {
+              date: new Date().getTime()
+            }
+          })
+          this.$route.params.id = videos[i - 1].desc
+
+          break
         }
       }
     },
@@ -156,35 +157,26 @@ export default {
           if (i === len - 1) {
             break
           }
-          console.log(window.location.href)
-          // const player = videojs('my-player')
-          // player.src(this.$store.getters.base + videos[i + 1].desc)
-          this.player.src({ src: this.$store.getters.base + videos[i + 1].desc, type: 'application/x-mpegURL' })
-          // this.$router.push({
-          //   path: `/video/${videos[i + 1].desc}`,
-          //   query: {
-          //     date: new Date().getTime()
-          //   }
-          // })
-          // this.$router.push(`/video/${videos[i + 1].desc}`)
-          // window.location.replace(`/video/${videos[i + 1].desc}`)
+
+          this.$router.push({
+            path: `/video/${videos[i + 1].desc}`,
+            query: {
+              date: new Date().getTime()
+            }
+          })
+          break
         }
       }
     },
     handleMounted(payload) {
       // this.player.value = payload.player
-      console.log('Basic player mounted', payload)
-    }
-  },
-  watch: {
-    '$route' (to, from) {
-      const url = window.location.protocol + '//' + window.location.host + to.href
-      console.log(url)
-      if (this.$route.query.id) {
-        console.info('加载页面数据')
-      }
+      this.player = payload.player.player_
+      this.id = this.player.id_
+      // payload.player.play()
+      console.log('Basic player mounted', this.player)
     }
   }
+
 }
 
 </script>

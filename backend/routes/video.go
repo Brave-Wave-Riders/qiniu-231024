@@ -12,6 +12,7 @@ import (
 	"qiniu_video/dao/mysql"
 	"qiniu_video/settings"
 	"strconv"
+	"strings"
 
 	"log"
 )
@@ -20,14 +21,18 @@ import (
 //
 //	@Description: get
 func Token(filename string) string {
+	//"persistentOps":        "vframe/jpg/offset/1/w/480/h/360",
 	cfg := settings.Conf.QiNiuCloud
 	bucket := cfg.Bucket
 	fops := cfg.Fops
 	saveMp4Entry := base64.URLEncoding.EncodeToString([]byte(bucket + ":" + filename))
+	saveJpgEntry := base64.URLEncoding.EncodeToString([]byte(cfg.Bucket + ":" + filename + ".jpg"))
 	fops += "|saveas/" + saveMp4Entry
+	imgFops := cfg.ImgFops + "|saveas/" + saveJpgEntry
+	persistentOps := strings.Join([]string{fops, imgFops}, ";")
 	putPolicy := storage.PutPolicy{
 		Scope:         bucket,
-		PersistentOps: fops,
+		PersistentOps: persistentOps,
 	}
 	putPolicy.Expires = cfg.Expires
 	accessKey := cfg.AccessKey
@@ -71,7 +76,7 @@ func Upload(ctx *gin.Context) {
 	db := mysql.Get()
 	tx := db.Create(info)
 	if tx.Error != nil {
-		ctx.JSON(http.StatusInternalServerError, &Response{
+		ctx.JSON(http.StatusOK, &Response{
 			Code:   1,
 			ErrMsg: "database error",
 		})
@@ -104,8 +109,8 @@ func List(ctx *gin.Context) {
 	}
 	if perNumsInt > 35 {
 		perNumsInt = 35
-	} else if perNumsInt < 15 {
-		perNumsInt = 15
+	} else if perNumsInt < 10 {
+		perNumsInt = 10
 	}
 	offset := (pagesInt - 1) * perNumsInt
 	vtypeStr := ctx.Params.ByName("type")
@@ -133,7 +138,7 @@ func List(ctx *gin.Context) {
 	}
 	err := db.Limit(perNumsInt).Offset(offset).Find(&videos).Error
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, &Response{
+		ctx.JSON(http.StatusOK, &Response{
 			Code:   1,
 			ErrMsg: "database error",
 		})
@@ -144,7 +149,7 @@ func List(ctx *gin.Context) {
 		user := mysql.User{}
 		//user.ID = int32(v.Uid)
 		if err := mysql.Get().First(&user, v.Uid).Error; err != nil {
-			ctx.JSON(http.StatusInternalServerError, &Response{
+			ctx.JSON(http.StatusOK, &Response{
 				Code:   1,
 				ErrMsg: "database error",
 			})

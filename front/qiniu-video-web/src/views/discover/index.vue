@@ -26,7 +26,7 @@
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
     :current-page="page"
-    :page-sizes="[15, 20, 25, 30, 35]"
+    :page-sizes="[10, 15, 20, 25, 30, 35]"
     :page-size="size"
     layout="total, sizes, prev, pager, next, jumper"
     :total="total"
@@ -37,15 +37,17 @@
 <script setup>
 import { ref, onActivated } from 'vue'
 import { getVideoList } from '@/api/video'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+
+// const Base64 = require('js-base64').Base64
 
 const store = useStore()
 // // 数据相关
 // const tableData = ref([])
 const total = ref(0)
 const page = ref(1)
-const size = ref(15)
+const size = ref(10)
 const tableData = ref([
   { url: 'title.png', desc: '测试图', icon: 'default.jpg', author: '遁形' },
   { url: 'title.png', desc: '测试图', icon: 'default.jpg', author: '遁形' },
@@ -68,14 +70,30 @@ const tableData = ref([
   { url: 'title.png', desc: '测试图', icon: 'default.jpg', author: '遁形' },
   { url: 'title.png', desc: '测试图', icon: 'default.jpg', author: '遁形' }])
 
+let id = '0'
 // 获取数据的方法
 const getListData = async () => {
-  const result = await getVideoList(1, {
+  const route = useRoute()
+  if (route) {
+    id = route.params.id
+  }
+  const result = await getVideoList(id, {
     page: page.value,
     size: size.value
   })
-  console.log(result.data)
-  console.log(result.total)
+  // console.log(result.data)
+  // console.log(result.total)
+  if (result.total === 0) {
+    return
+  }
+  const res = result.data
+  for (let i = 0; i < res.length; i++) {
+    // const desc = result.data.desc
+    // console.log(typeof result.data)
+    // result.data[i].desc = Base64.decode(result.data[i].desc)
+    res[i].url = result.base + res[i].desc + '.jpg'
+    console.log(result.data[i].url)
+  }
   store.commit('video/setVideoData', result.data)
   store.commit('video/setVideoNum', result.total)
   store.commit('video/setBaseUrl', result.base)

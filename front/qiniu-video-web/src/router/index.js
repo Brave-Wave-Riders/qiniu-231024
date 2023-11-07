@@ -5,10 +5,10 @@ const routes = [
   {
     path: '/',
     component: () => layout,
-    redirect: '/discover',
+    redirect: '/discover/0',
     children: [
       {
-        path: '/discover',
+        path: '/discover/:id',
         name: 'discover',
         component: () =>
           import('@/views/discover/index'),
@@ -37,11 +37,75 @@ const routes = [
       {
         path: '/profile',
         name: 'profile',
+        redirect: '/discover/0',
         component: () =>
           import('@/views/profile/index'),
         meta: {
           title: '我的',
           icon: 'el-icon-user'
+        }
+      },
+      {
+        path: '/knowledge',
+        name: 'knowledge',
+        redirect: '/discover/1',
+        meta: {
+          title: '知识',
+          icon: 'el-icon-reading'
+        }
+      },
+      {
+        path: '/game',
+        name: 'game',
+        redirect: '/discover/2',
+        meta: {
+          title: '游戏',
+          icon: 'el-icon-mobile-phone'
+        }
+      },
+      {
+        path: '/enjoy',
+        name: 'enjoy',
+        redirect: '/discover/3',
+        meta: {
+          title: '娱乐',
+          icon: 'el-icon-star-off'
+        }
+      },
+      {
+        path: '/music',
+        name: 'music',
+        redirect: '/discover/4',
+        meta: {
+          title: '音乐',
+          icon: 'el-icon-headset'
+        }
+      },
+      {
+        path: '/food',
+        name: 'food',
+        redirect: '/discover/5',
+        meta: {
+          title: '美食',
+          icon: 'el-icon-tableware'
+        }
+      },
+      {
+        path: '/sport',
+        name: 'sport',
+        redirect: '/discover/6',
+        meta: {
+          title: '体育',
+          icon: 'el-icon-football'
+        }
+      },
+      {
+        path: '/fade',
+        name: 'fade',
+        redirect: '/discover/7',
+        meta: {
+          title: '时尚',
+          icon: 'el-icon-s-goods'
         }
       },
       {
