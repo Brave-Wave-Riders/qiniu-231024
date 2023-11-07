@@ -1,7 +1,18 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import layout from '@/layout/index'
+import store from '@/store'
 
 const routes = [
+  {
+    path: '/login',
+    component: () =>
+      import(/* webpackChunkName: "login" */ '@/views/login/index')
+  },
+  {
+    path: '/register',
+    component: () =>
+      import(/* webpackChunkName: "login" */ '@/views/register/index')
+  },
   {
     path: '/',
     component: () => layout,
@@ -37,13 +48,9 @@ const routes = [
       {
         path: '/profile',
         name: 'profile',
-        redirect: '/discover/0',
+        redirect: '/discover/8',
         component: () =>
-          import('@/views/profile/index'),
-        meta: {
-          title: '我的',
-          icon: 'el-icon-user'
-        }
+          import('@/views/profile/index')
       },
       {
         path: '/knowledge',
@@ -128,5 +135,21 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+/**
+ * 初始化路由表
+ */
+export function resetRouter() {
+  if (
+    store.getters.userInfo &&
+    store.getters.userInfo.permission &&
+    store.getters.userInfo.permission.menus
+  ) {
+    const menus = store.getters.userInfo.permission.menus
+    menus.forEach(menu => {
+      router.removeRoute(menu)
+    })
+  }
+}
 
 export default router

@@ -18,6 +18,7 @@ type AppConfig struct {
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
 	*QiNiuCloud  `mapstructure:"qiniu_cloud"`
+	*JwtConfig   `mapstructure:"jwt"`
 }
 
 type MySQLConfig struct {
@@ -57,6 +58,11 @@ type QiNiuCloud struct {
 	SecretKey string `mapstructure:"secretKey"`
 	Base      string `mapstructure:"base"`
 	Expires   uint64 `mapstructure:"expires"`
+}
+type JwtConfig struct {
+	Timeout int    `mapstructure:"timeout"`
+	Key     string `mapstructure:"key"`
+	Issuer  string `mapstructure:"issuer"`
 }
 
 func Init() (err error) {

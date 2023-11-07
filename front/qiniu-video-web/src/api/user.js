@@ -1,13 +1,31 @@
 import request from '@/utils/request'
 
-export const feature = () => {
+/**
+ * 登录
+ */
+export const login = data => {
   return request({
-    url: '/user/feature'
+    url: '/api/user/v1/login',
+    method: 'POST',
+    data
+  })
+}
+/**
+ * 获取用户信息
+ */
+export const getUserInfo = () => {
+  return request({
+    url: '/api/user/v1/profile'
   })
 }
 
-export const chapter = () => {
+/**
+ * 登录
+ */
+export const register = data => {
   return request({
-    url: '/user/chapter'
+    url: '/api/user/v1/register',
+    method: 'POST',
+    data
   })
 }

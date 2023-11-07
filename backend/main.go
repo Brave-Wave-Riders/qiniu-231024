@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"qiniu_video/dao/mysql"
+	"qiniu_video/dao/redis"
 	"qiniu_video/logger"
 	"qiniu_video/routes"
 	"qiniu_video/settings"
@@ -30,11 +31,11 @@ func main() {
 		return
 	}
 
-	//if err := redis.Init(settings.Conf.RedisConfig); err != nil {
-	//	fmt.Printf("init redis failed, error desc: %v\n", err)
-	//	return
-	//}
-	//defer redis.Close()
+	if err := redis.Init(settings.Conf.RedisConfig); err != nil {
+		fmt.Printf("init redis failed, error desc: %v\n", err)
+		return
+	}
+	defer redis.Close()
 
 	r := routes.SetUp(settings.Conf.Mode)
 	srv := &http.Server{

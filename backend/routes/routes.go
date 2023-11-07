@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"qiniu_video/logger"
+	"qiniu_video/middlewares"
 )
 
 func SetUp(mode string) *gin.Engine {
@@ -28,10 +29,16 @@ func SetUp(mode string) *gin.Engine {
 	videoGroup := r.Group("/video")
 	videoV1 := videoGroup.Group("/v1")
 	{
-		videoV1.POST("/upload", Upload)
+		videoV1.POST("/upload", middlewares.JwtAuth(), Upload)
 		videoV1.GET("/list/:type", List)
+		videoV1.GET("/list/my", middlewares.JwtAuth(), MyList)
 	}
-
+	userGroup := r.Group("/user")
+	userV1 := userGroup.Group("/v1")
+	{
+		userV1.POST("/login", Login)
+		userV1.POST("/register", Register)
+	}
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "404",

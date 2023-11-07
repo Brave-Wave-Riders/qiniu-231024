@@ -15,15 +15,19 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
-            <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
-            </router-link>
-            <router-link to="/video/upload">
-              <el-dropdown-item> 创作 </el-dropdown-item>
-            </router-link>
-            <el-dropdown-item divided>
-              登出
-            </el-dropdown-item>
+            <div v-if="isLogin">
+              <router-link to="/profile">
+                <el-dropdown-item> 我的 </el-dropdown-item>
+              </router-link>
+              <router-link to="/video/upload">
+                <el-dropdown-item> 创作 </el-dropdown-item>
+              </router-link>
+            </div>
+            <div v-else>
+              <el-dropdown-item divided @click="login">
+                登录
+              </el-dropdown-item>
+            </div>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -34,13 +38,20 @@
 
 <script setup>
 import HeaderSearch from '@/components/HeaderSearch'
-// import {} from 'vue'
-// import { useStore } from 'vuex'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
+const isLogin = computed(() => {
+  return store.getters.token
+})
 
 // const store = useStore()
-// const logout = () => {
-//   store.dispatch('user/logout')
-// }
+const router = useRouter()
+const login = () => {
+  // store.dispatch('user/logout')
+  router.push('/login')
+}
 </script>
 
 <style lang="scss" scoped>

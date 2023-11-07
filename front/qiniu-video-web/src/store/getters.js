@@ -5,6 +5,8 @@ const getters = {
 
   videoData: state => state.video.data,
   total: state => state.video.total,
-  base: state => state.video.base
+  base: state => state.video.base,
+
+  token: state => state.user.token
 }
 export default getters

@@ -34,4 +34,7 @@ qiniu_cloud:
   secretKey: "Q90f2hiU-1_As9q9nclmCVMihJR6tSczCpWreLlG"
   base: "http://s3hk0nelw.bkt.clouddn.com/"
   expires: 604800
-
+jwt:
+  timeout: 24
+  key: "5$!UEmvB#nRB@Iwab#Sy!zofKEOGLRtE"
+  issuer: "dunxing"

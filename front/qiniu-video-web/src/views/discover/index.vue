@@ -36,7 +36,7 @@
 
 <script setup>
 import { ref, onActivated } from 'vue'
-import { getVideoList } from '@/api/video'
+import { getVideoList, getMyVideoList } from '@/api/video'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -77,10 +77,20 @@ const getListData = async () => {
   if (route) {
     id = route.params.id
   }
-  const result = await getVideoList(id, {
-    page: page.value,
-    size: size.value
-  })
+  console.log('id = ', id)
+  let result = null
+  if (id !== '8') {
+    result = await getVideoList(id, {
+      page: page.value,
+      size: size.value
+    })
+  } else {
+    result = await getMyVideoList({
+      page: page.value,
+      size: size.value
+    })
+  }
+  // const
   // console.log(result.data)
   // console.log(result.total)
   if (result.total === 0) {
@@ -120,7 +130,6 @@ const handleCurrentChange = currentPage => {
   page.value = currentPage
   getListData()
 }
-
 /**
  * 查看按钮点击事件
  */

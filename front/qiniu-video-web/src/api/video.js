@@ -21,3 +21,13 @@ export const uploadVideo = data => {
     data
   })
 }
+/**
+ * 获取我的视频列表
+ */
+export const getMyVideoList = (param) => {
+  return request({
+    url: '/api/video/v1/list/my',
+    params: param,
+    method: 'GET'
+  })
+}
